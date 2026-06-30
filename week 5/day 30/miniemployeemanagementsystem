@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_EMPLOYEES 100
+#define NAME_LENGTH 50
+#define DEPT_LENGTH 30
+
+struct Employee {
+    int id;
+    char name[NAME_LENGTH];
+    char department[DEPT_LENGTH];
+    float salary;
+};
+
+int main() {
+    struct Employee employees[MAX_EMPLOYEES];
+    int n, i;
+    char searchName[NAME_LENGTH];
+    int found = 0;
+
+    printf("Enter number of employees: ");
+    scanf("%d", &n);
+    getchar(); // consume newline
+
+    // Input employee records
+    for (i = 0; i < n; i++) {
+        printf("\nEnter details for employee %d\n", i + 1);
+        employees[i].id = i + 1;
+
+        printf("Name: ");
+        fgets(employees[i].name, NAME_LENGTH, stdin);
+        employees[i].name[strcspn(employees[i].name, "\n")] = '\0';
+
+        printf("Department: ");
+        fgets(employees[i].department, DEPT_LENGTH, stdin);
+        employees[i].department[strcspn(employees[i].department, "\n")] = '\0';
+
+        printf("Salary: ");
+        scanf("%f", &employees[i].salary);
+        getchar(); // consume newline
+    }
+
+    // Display all employees
+    printf("\n--- Employee Records ---\n");
+    for (i = 0; i < n; i++) {
+        printf("ID        : %d\n", employees[i].id);
+        printf("Name      : %s\n", employees[i].name);
+        printf("Department: %s\n", employees[i].department);
+        printf("Salary    : %.2f\n\n", employees[i].salary);
+    }
+
+    // Search for an employee by name
+    printf("Enter employee name to search: ");
+    fgets(searchName, NAME_LENGTH, stdin);
+    searchName[strcspn(searchName, "\n")] = '\0';
+
+    for (i = 0; i < n; i++) {
+        if (strcmp(employees[i].name, searchName) == 0) {
+            printf("\nEmployee Found!\n");
+            printf("ID        : %d\n", employees[i].id);
+            printf("Name      : %s\n", employees[i].name);
+            printf("Department: %s\n", employees[i].department);
+            printf("Salary    : %.2f\n", employees[i].salary);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("\nEmployee not found in the records.\n");
+    }
+
+    return 0;
+}

@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_BOOKS 100
+#define TITLE_LENGTH 100
+#define AUTHOR_LENGTH 50
+
+struct Book {
+    int id;
+    char title[TITLE_LENGTH];
+    char author[AUTHOR_LENGTH];
+};
+
+int main() {
+    struct Book library[MAX_BOOKS];
+    int n, i;
+    char searchTitle[TITLE_LENGTH];
+    int found = 0;
+
+    printf("Enter number of books: ");
+    scanf("%d", &n);
+    getchar(); // consume newline
+
+    // Input book records
+    for (i = 0; i < n; i++) {
+        printf("\nEnter details for book %d\n", i + 1);
+        library[i].id = i + 1;
+
+        printf("Title: ");
+        fgets(library[i].title, TITLE_LENGTH
